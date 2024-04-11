@@ -5,7 +5,7 @@ from config import organisation as organization_name
 # Upgrade OpenAI library to the latest version
 
 # Use the most powerful available model with optimized parameters
-model_name = "text-davinci-003"  # Adjust if needed for fine-tuned models
+model_name = "gpt-3.5-turbo-instruct"  # Adjust if needed for fine-tuned models
 temperature = 0.5  # Balance creativity and coherence
 max_tokens = 150  # Adjusted for batch processing
 stop = None  # Prevent premature truncation
