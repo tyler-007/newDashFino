@@ -20,7 +20,7 @@ def get_completion(prompt, model="gpt-4.0-turbo", temperature=0.5):
         ],
         temperature=temperature,
     )
-    return response.choices[0].message.content
+    return response.choices[0].text.content
 
 def labelling(data):
     """Labels data by sentiment."""
