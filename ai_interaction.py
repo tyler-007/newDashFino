@@ -3,10 +3,10 @@ import numpy as np
 import openai
 import random
 
-openai.api_key = apikey  # Replace with your actual API key
 
 from config import organisation as organization_name
 from config import apikey
+openai.api_key = apikey  # Replace with your actual API key
 
 def get_completion(prompt, model="gpt-4.0-turbo", temperature=0.5):
     """Generates a completion using OpenAI's GPT model."""
