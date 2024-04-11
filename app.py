@@ -2,7 +2,6 @@ import streamlit as st
 from data_processing import process_csv_file
 from generate_wordcloud import generate_word_cloud
 from piechart import generate_dashboard
-from ai_interaction import generate_suggestions
 import pandas as pd
 import config
 
@@ -35,10 +34,6 @@ def main():
                 st.header(header)
                 st.image(file_path)
 
-        st.subheader("AI Suggestions")
-        suggestions = generate_suggestions(api_key, df)
-        for suggestion in suggestions:
-            st.text(suggestion)
 
 if __name__ == "__main__":
     main()
