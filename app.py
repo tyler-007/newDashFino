@@ -9,9 +9,6 @@ def main():
     st.title("Fino Payments Bank Marketing Tool by Aayush Jain")
     uploaded_file = st.file_uploader("Upload CSV file", type="csv")
     if uploaded_file is not None:
-        config.organisation = st.text_input("Enter your Orgs Name")
-        api_key = st.text_input("Enter your API key")
-        config.apikey= api_key
         df = process_csv_file(uploaded_file)
 
         st.subheader("Word Clouds for all applications")
