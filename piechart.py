@@ -33,15 +33,15 @@ def plot_piechart(data, column, file_path, background_color=None):
     explode = [0.1] * len(counts) # Dynamically calculate explode based on the number of categories
     
     fig, ax = plt.subplots(figsize=(8, 6))
-    patches, texts, autotexts = ax.pie(counts, labels=None, autopct='%1.1f%%', startangle=140,
+    patches, texts, autotexts = ax.pie(counts, labels=None, autopct='%d', startangle=140,
                                        colors=[colors[label] for label in labels], explode=explode,
                                        textprops=dict(color="#4169E1"))
     ax.axis('equal')
     ax.set_facecolor(background_color)
     fig.patch.set_facecolor('black')
     
-    for text, label in zip(autotexts, labels):
-        text.set_text(f'{text.get_text()} - {label}')
+    for text, label, count in zip(autotexts, labels, counts):
+        text.set_text(f'{count} - {label}')
     
     plt.legend(patches, labels, loc="best")
     
@@ -50,6 +50,7 @@ def plot_piechart(data, column, file_path, background_color=None):
     plt.close(fig) # Close the figure to release memory
     
     return file_path
+
 '''import matplotlib.pyplot as plt
 import pandas as pd
 import os
