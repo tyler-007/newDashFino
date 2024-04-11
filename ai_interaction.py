@@ -3,26 +3,21 @@ import numpy as np
 import openai
 import random
 
-
 from config import organisation as organization_name
 from config import apikey
-openai.api_key = apikey  # Replace with your actual API key
 
-def get_completion(prompt, model="gpt-4.0-turbo", temperature=0.5):
+# Set your OpenAI API key here
+openai.api_key = apikey
+
+def get_completion(prompt, model="text-davinci-003", temperature=0.5):
     """Generates a completion using OpenAI's GPT model."""
-    response = openai.Completion.create(  # Use correct method for OpenAI 1.4.1
-        model=model,
+    response = openai.Completion.create(
+        engine=model,  # Adjusted to use the `engine` parameter
         prompt=prompt,
-        instructions=[
-            "Use evidence from the provided dataset to support your claims.",
-            "Avoid making claims that are not supported by the data.",
-            "Be factual and objective in your analysis.",
-            "Focus on the most significant findings from each sentiment category.",
-            "Present insights as concise bullet points with corresponding percentage stats."
-        ],
         temperature=temperature,
+        max_tokens=500,  # You might want to adjust this based on your needs
     )
-    return response.choices[0].text.content 
+    return response.choices[0].text
 
 def labelling(data):
     """Labels data by sentiment."""
@@ -33,11 +28,10 @@ def labelling(data):
         sentiment_content_dict[sentiment] = sentiment_content_dict.get(sentiment, []) + [content]
     return sentiment_content_dict
 
-def generate_suggestions(api_key,data):
+def generate_suggestions(api_key, data):
     """Generates suggestions for each sentiment category."""
-    openai.api_key = api_key
-    random_number = random.randint(500, 1000)
-    data = data.sample(n=random_number, random_state=42)
+    random_number = random.randint(500, 1000)  # Sample size
+    data = data.sample(n=min(random_number, len(data)), random_state=42)  # Ensure not to exceed dataset size
     dict_obt = labelling(data)
 
     suggestions = []
@@ -50,8 +44,6 @@ As a business insights expert at {organization_name}, analyze the {sentiment} fe
 - For each insight, provide a **percentage stat** indicating the proportion of comments expressing the same sentiment.
 - Limit output to 5 bullet points with corresponding percentage stats.
         """
-        response = get_completion(prompt)
+        response = get_completion(prompt, model="gpt-4.0-turbo")  # Update the model to the latest
         suggestions.append((sentiment, response))
     return suggestions
-
-
