@@ -12,6 +12,7 @@ def main():
     if uploaded_file is not None:
         config.organisation = st.text_input("Enter your Orgs Name")
         api_key = st.text_input("Enter your API key")
+        config.apikey= api_key
         df = process_csv_file(uploaded_file)
 
         st.subheader("Word Clouds for all applications")
