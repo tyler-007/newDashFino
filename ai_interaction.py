@@ -2,14 +2,16 @@ import pandas as pd
 import numpy as np
 import openai
 import random
+
 # Update to version 1.14.1
+openai.api_key = "your_api_key_here"  # Replace with your actual API key
 
 from config import organisation as organization_name
 
 def get_completion(prompt, model="gpt-4.0-turbo", temperature=0.5):
     """Generates a completion using OpenAI's GPT model."""
-    response = openai.ChatCompletion.create(
-        model=model,  # Use gpt-4.0-turbo
+    response = openai.Completion.create(  # Use correct method for OpenAI 1.4.1
+        model=model,
         prompt=prompt,
         instructions=[
             "Use evidence from the provided dataset to support your claims.",
@@ -20,7 +22,7 @@ def get_completion(prompt, model="gpt-4.0-turbo", temperature=0.5):
         ],
         temperature=temperature,
     )
-    return response.choices[0].text.content
+    return response.choices[0].text.content 
 
 def labelling(data):
     """Labels data by sentiment."""
